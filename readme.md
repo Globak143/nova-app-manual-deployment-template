@@ -10,7 +10,7 @@ You cannot automate what you haven't done manually first. That is the idea behin
 
 Nova-App is a simple Express application I previously deployed by hand to Amazon EKS, and this template gives you that working starting point: the app, Dockerfile, and Kubernetes manifests.
 
-In this [article series](), we'll build on that manual deployment by adding a GitHub Actions CI/CD pipeline. You'll configure Amazon ECR, IAM authentication through GitHub OIDC, Kubernetes RBAC and the deployment workflow that brings everything together.
+In this [article series](https://medium.com/@gloriaboakye/want-to-deploy-your-app-to-eks-on-every-git-push-8e61321ffed4?postPublishedType=initial), we'll build on that manual deployment by adding a GitHub Actions CI/CD pipeline. You'll configure Amazon ECR, IAM authentication through GitHub OIDC, Kubernetes RBAC and the deployment workflow that brings everything together.
 
 Use this template to follow along, build the pipeline yourself, and turn a manual deployment process into one where every git push can trigger an automated deployment to EKS.
 
@@ -21,7 +21,7 @@ Use this template to follow along, build the pipeline yourself, and turn a manua
 
 2. Name your new repository `nova-app`. Part 1 configures an IAM trust policy expecting `YOUR_GITHUB_USERNAME/nova-app` , if you use a different repository name, update the trust policy to match.
 
-3. Clone your new repository (its default branch is `main`, which your Part 1 workflow will watch):
+3. Clone your new repository. The pipeline you build will watch the main branch by default.
 
 ```bash
 # Download your copy of the starter repo
@@ -64,7 +64,7 @@ I made three small updates to the original manual deployment, so you can start s
  
 - **`k8s/cluster-config.yaml`** now pins Kubernetes `1.34`. The original `1.28` is no longer supported by EKS, and `eksctl` refuses it.
 - **The Dockerfile** now starts from `node:24`. It used `node:18`.
-- **`k8s/deployment.yaml`** now has a placeholder ECR image, `123456789123.dkr.ecr.us-east-1.amazonaws.com/nova-app:latest`. It used my Docker Hub image.
+- **`k8s/deployment.yaml`** now has a placeholder ECR image, `123456789123.dkr.ecr.us-east-1.amazonaws.com/nova-app:latest`. It used my Docker Hub image previously.
 
 
 ## Your Setup Checklist:
@@ -92,16 +92,21 @@ eksctl delete cluster --name nova-app-cluster --region us-east-1
 
 ## Articles & Reference Links
  
-- **Part 1 of the series:** [LINK-TO-PART-1]
+- **Part 1 of the series:** [Want to Deploy Your App to EKS on Every git push](https://medium.com/@gloriaboakye/want-to-deploy-your-app-to-eks-on-every-git-push-8e61321ffed4?postPublishedType=initial)
+
 - **First article (the manual deployment):** [Deploying a Simple Node.js App on AWS EKS](https://medium.com/@gloriaboakye/deploying-a-simple-node-js-app-on-aws-eks-a-beginner-and-budget-friendly-guide-02d1e101fd26)
+
 - **The finished project, with the full code:** [Globak143/nova-app](https://github.com/Globak143/nova-app)
 ## Author
  
 **Gloria Boakye**
  
 - LinkedIn: [linkedin.com/in/gloriaboakye](https://linkedin.com/in/gloriaboakye)
+
 - Medium: [@gloriaboakye](https://medium.com/@gloriaboakye)
+
 - GitHub: [github.com/Globak143](https://github.com/Globak143)
+
 ## License
  
 This project is open source and available under the [MIT License](LICENSE).
